@@ -20,4 +20,12 @@ describe OmniAuth::Strategies::Dwolla do
       subject.client.options[:token_url].should eq('/oauth/v2/token')
     end
   end
+
+  describe '#authorize_params' do
+    it 'includes default scope for email and offline access' do
+      subject.authorize_params.should be_a(Hash)
+      subject.authorize_params[:scope].should eq('send|transactions')
+    end
+  end
 end
+

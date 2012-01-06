@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Jefferson Girao"]
   s.email       = ["contato@jefferson.eti.br"]
   s.homepage    = "https://github.com/jeffersongirao/omniauth-dwolla"
-  s.summary     = %q{OmniAuth strategy for GitHub.}
-  s.description = %q{OmniAuth strategy for GitHub.}
+  s.summary     = %q{OmniAuth strategy for Dwolla.}
+  s.description = %q{OmniAuth strategy for Dwolla.}
 
   s.rubyforge_project = "omniauth-dwolla"
 

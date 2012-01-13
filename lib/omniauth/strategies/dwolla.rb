@@ -3,7 +3,7 @@ require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
     class Dwolla < OmniAuth::Strategies::OAuth2
-      DEFAULT_SCOPE = 'send|transactions|balance'
+      DEFAULT_SCOPE = 'send|transactions|balance|request'
       
       option :client_options, {
         :site => 'https://www.dwolla.com',

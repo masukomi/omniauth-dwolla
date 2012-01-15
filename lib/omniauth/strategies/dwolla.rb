@@ -32,7 +32,7 @@ module OmniAuth
       end
 
       def info
-        @info ||= ::Dwolla::User.me(access_token.token)
+        @info ||= ::Dwolla::User.me(access_token.token).fetch
       end
     end
   end

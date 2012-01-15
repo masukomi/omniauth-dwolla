@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'omniauth', '~> 1.0'
   s.add_dependency 'omniauth-oauth2', '~> 1.0'
-  s.add_dependency 'dwolla', '>= 0.0.8'
+  s.add_dependency 'dwolla', '>= 0.0.9'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.7'

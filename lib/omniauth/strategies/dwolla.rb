@@ -11,10 +11,27 @@ module OmniAuth
         :token_url => '/oauth/v2/token'
       }
 
+      uid { info.id }
+
+      info do
+        prune!({
+          'name'      => info.name,
+          'latitude'  => info.latitude,
+          'longitude' => info.longitude,
+          'city'      => info.city,
+          'state'     => info.state,
+          'type'      => info.type
+        })
+      end
+
       def authorize_params
         super.tap do |params|
           params[:scope] ||= DEFAULT_SCOPE
         end
+      end
+
+      def info
+        @raw_info ||= Dwolla::User.me(access_token).fetch
       end
     end
   end

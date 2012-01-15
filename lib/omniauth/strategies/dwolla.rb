@@ -4,7 +4,7 @@ require 'dwolla'
 module OmniAuth
   module Strategies
     class Dwolla < OmniAuth::Strategies::OAuth2
-      DEFAULT_SCOPE = 'send|transactions|balance|request'
+      DEFAULT_SCOPE = 'send|transactions|balance|request|accountinfofull'
 
       option :client_options, {
         :site => 'https://www.dwolla.com',
@@ -32,7 +32,7 @@ module OmniAuth
       end
 
       def info
-        @raw_info ||= ::Dwolla::User.me(access_token).fetch
+        @info ||= ::Dwolla::User.me(access_token.token)
       end
     end
   end

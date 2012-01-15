@@ -12,7 +12,7 @@ module OmniAuth
         :token_url => '/oauth/v2/token'
       }
 
-      uid { info.id }
+      uid { raw_info.id }
 
       info do
         prune!({

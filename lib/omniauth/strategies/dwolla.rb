@@ -1,4 +1,5 @@
 require 'omniauth-oauth2'
+require 'dwolla'
 
 module OmniAuth
   module Strategies
@@ -31,7 +32,7 @@ module OmniAuth
       end
 
       def info
-        @raw_info ||= Dwolla::User.me(access_token).fetch
+        @raw_info ||= ::Dwolla::User.me(access_token).fetch
       end
     end
   end

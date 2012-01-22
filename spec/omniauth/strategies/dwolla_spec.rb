@@ -21,6 +21,34 @@ describe OmniAuth::Strategies::Dwolla do
     end
   end
 
+  describe '#info' do
+    before :each do
+      @access_token = double(:token => 'test_token')
+      subject.stub(:access_token) { @access_token }
+    end
+
+    it 'get a dwolla user through Dwolla Wrapper' do
+      dwolla_user = double( :name => 'Test Name',
+                            :latitude => '123',
+                            :longitude => '321',
+                            :city => 'Sample City',
+                            :state => 'TT',
+                            :type => 'Personal' )
+
+      dwolla_user.should_receive(:fetch).and_return(dwolla_user)
+      ::Dwolla::User.should_receive(:me).with(@access_token.token).and_return(dwolla_user)
+      subject.info.should == { 'name'      => 'Test Name',
+                               'latitude'  => '123',
+                               'longitude' => '321',
+                               'city'      => 'Sample City',
+                               'state'     => 'TT',
+                               'type'      => 'Personal' }
+    end
+  end
+
+  describe '#uid' do
+  end
+
   describe '#authorize_params' do
     it 'includes default scope for email and offline access' do
       subject.authorize_params.should be_a(Hash)

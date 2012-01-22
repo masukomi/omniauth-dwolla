@@ -24,4 +24,4 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 ```
 
-The default :scope is 'accountinfofull'. It is necessary in order to grab the uid and detailed info from user.
+The default :scope is 'accountinfofull'. It is necessary in order to grab the uid and detailed info for user.

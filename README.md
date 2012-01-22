@@ -23,5 +23,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :dwolla, ENV['DWOLLA_KEY'], ENV['DWOLLA_SECRET'], :scope => 'accountinfofull|send|request'
 end
 ```
+The :scope param is optional.
 
 The default :scope is 'accountinfofull'. It is necessary in order to grab the uid and detailed info for user.

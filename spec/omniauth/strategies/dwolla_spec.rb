@@ -21,22 +21,24 @@ describe OmniAuth::Strategies::Dwolla do
     end
   end
 
-  describe '#info' do
-    before :each do
+  describe 'getting info' do
+    before do
       @access_token = double(:token => 'test_token')
+      @dwolla_user  = double( :id => '12345',
+                              :name => 'Test Name',
+                              :latitude => '123',
+                              :longitude => '321',
+                              :city => 'Sample City',
+                              :state => 'TT',
+                              :type => 'Personal' )
+
       subject.stub(:access_token) { @access_token }
+
+      @dwolla_user.should_receive(:fetch).and_return(@dwolla_user)
+      ::Dwolla::User.should_receive(:me).with(@access_token.token).and_return(@dwolla_user)
     end
 
-    it 'get a dwolla user through Dwolla Wrapper' do
-      dwolla_user = double( :name => 'Test Name',
-                            :latitude => '123',
-                            :longitude => '321',
-                            :city => 'Sample City',
-                            :state => 'TT',
-                            :type => 'Personal' )
-
-      dwolla_user.should_receive(:fetch).and_return(dwolla_user)
-      ::Dwolla::User.should_receive(:me).with(@access_token.token).and_return(dwolla_user)
+    it 'set the correct info based on user' do
       subject.info.should == { 'name'      => 'Test Name',
                                'latitude'  => '123',
                                'longitude' => '321',
@@ -44,9 +46,10 @@ describe OmniAuth::Strategies::Dwolla do
                                'state'     => 'TT',
                                'type'      => 'Personal' }
     end
-  end
 
-  describe '#uid' do
+    it 'set the correct uid based on user' do
+      subject.uid.should == '12345'
+    end
   end
 
   describe '#authorize_params' do

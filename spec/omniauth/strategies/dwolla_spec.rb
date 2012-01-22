@@ -24,7 +24,7 @@ describe OmniAuth::Strategies::Dwolla do
   describe '#authorize_params' do
     it 'includes default scope for email and offline access' do
       subject.authorize_params.should be_a(Hash)
-      subject.authorize_params[:scope].should eq('send|transactions|balance|request|accountinfofull')
+      subject.authorize_params[:scope].should eq('accountinfofull')
     end
   end
 end

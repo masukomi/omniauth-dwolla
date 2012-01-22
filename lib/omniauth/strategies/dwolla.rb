@@ -16,12 +16,12 @@ module OmniAuth
 
       info do
         prune!({
-          'name'      => raw_info.name,
-          'latitude'  => raw_info.latitude,
-          'longitude' => raw_info.longitude,
-          'city'      => raw_info.city,
-          'state'     => raw_info.state,
-          'type'      => raw_info.type
+          'name'      => user.name,
+          'latitude'  => user.latitude,
+          'longitude' => user.longitude,
+          'city'      => user.city,
+          'state'     => user.state,
+          'type'      => user.type
         })
       end
 
@@ -31,11 +31,10 @@ module OmniAuth
         end
       end
 
-      def raw_info
-        @raw_info ||= ::Dwolla::User.me(access_token.token).fetch
-      end
-
       private
+        def user
+          @user ||= ::Dwolla::User.me(access_token.token).fetch
+        end
 
         def prune!(hash)
           hash.delete_if do |_, value| 

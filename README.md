@@ -26,3 +26,9 @@ end
 The :scope param is optional.
 
 The default :scope is 'accountinfofull'. It is necessary in order to grab the uid and detailed info for user.
+
+## Exception Handling
+
+If the Dwolla library raises a `Dwolla::RequestException`, that will be wrapped and re-raised as a `OmniAuth::Strategies::OAuth2::CallbackError`.  The OmniAuth OAuth2 library will, in turn, treat that as a failure due to invalid credentials, passing the `CallbackError` through Rack's middleware chain.
+
+Note that the `Devise::OmniauthCallbacksController` provides a good example of handling this scenario.

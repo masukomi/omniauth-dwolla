@@ -34,21 +34,54 @@ describe OmniAuth::Strategies::Dwolla do
 
       subject.stub(:access_token) { @access_token }
 
-      @dwolla_user.should_receive(:fetch).and_return(@dwolla_user)
       ::Dwolla::User.should_receive(:me).with(@access_token.token).and_return(@dwolla_user)
     end
 
-    it 'set the correct info based on user' do
-      subject.info.should == { 'name'      => 'Test Name',
-                               'latitude'  => '123',
-                               'longitude' => '321',
-                               'city'      => 'Sample City',
-                               'state'     => 'TT',
-                               'type'      => 'Personal' }
+    context 'when successful' do
+      before do
+        @dwolla_user.should_receive(:fetch).and_return(@dwolla_user)
+      end
+
+      it 'sets the correct info based on user' do
+        subject.info.should == { 'name'      => 'Test Name',
+                                 'latitude'  => '123',
+                                 'longitude' => '321',
+                                 'city'      => 'Sample City',
+                                 'state'     => 'TT',
+                                 'type'      => 'Personal' }
+      end
+
+      it 'sets the correct uid based on user' do
+        subject.uid.should == '12345'
+      end
     end
 
-    it 'set the correct uid based on user' do
-      subject.uid.should == '12345'
+    context 'when a Dwolla::RequestException is raised' do
+      let(:request_exception) { ::Dwolla::RequestException.new('Dwolla Error Message') }
+
+      before do
+        @dwolla_user.should_receive(:fetch).and_raise(request_exception)
+      end
+
+      it 're-raises the appropriate OAuth error' do
+        expect {
+          subject.uid
+        }.to raise_error(OmniAuth::Strategies::OAuth2::CallbackError)
+      end
+
+      it 'passes along the original exception' do
+        exception = nil
+
+        begin
+          subject.uid
+        rescue OmniAuth::Strategies::OAuth2::CallbackError => e
+          exception = e
+          exception.error.should eq(request_exception)
+          exception.error_reason.should eq(request_exception.message)
+        end
+
+        exception.should be
+      end
     end
   end
 

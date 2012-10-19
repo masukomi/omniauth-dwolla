@@ -34,6 +34,8 @@ module OmniAuth
       private
         def user
           @user ||= ::Dwolla::User.me(access_token.token).fetch
+        rescue ::Dwolla::RequestException => e
+          raise CallbackError.new(e, e.message)
         end
 
         def prune!(hash)

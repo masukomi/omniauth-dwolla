@@ -9,7 +9,8 @@ module OmniAuth
       option :client_options, {
         :site => 'https://www.dwolla.com',
         :authorize_url => '/oauth/v2/authenticate',
-        :token_url => '/oauth/v2/token'
+        :token_url => '/oauth/v2/token',
+        :provider_ignores_state => true
       }
 
       uid { user.id }

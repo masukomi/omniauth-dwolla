@@ -20,10 +20,12 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'omniauth', '~> 1.1.4'
   s.add_dependency 'omniauth-oauth2', '~> 1.1.1'
-  s.add_dependency 'dwolla', '>= 0.0.15'
+  s.add_dependency 'dwolla', '>= 0.0.14' 
+    #using >=0.0.15 results in a variety of dependency conflicts
 
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec', '~> 2.7'
+  s.add_development_dependency 'rspec', '~> 2.13.0'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'debugger'
 end

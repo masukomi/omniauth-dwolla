@@ -9,16 +9,19 @@ describe OmniAuth::Strategies::Dwolla do
 
   describe '#client' do
     it 'should have the correct dwolla site' do
-      subject.client.site.should eq("https://www.dwolla.com")
+      expect(subject.client.site).to eq("https://www.dwolla.com")
     end
 
     it 'should have the correct authorization url' do
-      subject.client.options[:authorize_url].should eq("/oauth/v2/authenticate")
+      expect(subject.client.options[:authorize_url]).to eq("/oauth/v2/authenticate")
     end
 
     it 'should have the correct token url' do
-      subject.client.options[:token_url].should eq('/oauth/v2/token')
+      expect(subject.client.options[:token_url]).to eq('/oauth/v2/token')
     end
+
+    #TODO find a way to set :provider_ignores_state to true by default
+    # and add a test for it. -masukomi
   end
 
   describe 'getting info' do

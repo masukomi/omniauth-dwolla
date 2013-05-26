@@ -20,12 +20,25 @@ Here's a quick example, adding the middleware to a Rails app in `config/initiali
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :dwolla, ENV['DWOLLA_KEY'], ENV['DWOLLA_SECRET'], :scope => 'accountinfofull|send|request'
+  provider :dwolla, ENV['DWOLLA_KEY'], ENV['DWOLLA_SECRET'], :scope => 'accountinfofull|send|request, :provider_ignores_state => true'
 end
 ```
 The :scope param is optional.
 
 The default :scope is 'accountinfofull'. It is necessary in order to grab the uid and detailed info for user.
+
+The extra hash will include:
+```json
+    "raw_info": {
+        "City": "Des Moines",
+        "Id": "812-111-1111",
+        "Latitude": 41.584546,
+        "Longitude": -93.634167,
+        "Name": "Test User",
+        "State": "IA",
+        "Type": "Personal"
+    }
+```
 
 ## Exception Handling
 

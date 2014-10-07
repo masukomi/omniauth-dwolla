@@ -25,10 +25,9 @@ END
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'omniauth', '~> 1.1.4'
-  s.add_dependency 'omniauth-oauth2', '~> 1.1.1'
-  s.add_dependency 'dwolla', '>= 0.0.14' 
-    #using >=0.0.15 results in a variety of dependency conflicts
+  s.add_dependency 'omniauth', '~> 1.2'
+  s.add_dependency 'omniauth-oauth2', '~> 1.2'
+  s.add_dependency 'dwolla-ruby', '~> 2.5'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.13.0'

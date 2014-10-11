@@ -27,31 +27,31 @@ describe OmniAuth::Strategies::Dwolla do
   describe 'getting info' do
     before do
       @access_token = double(:token => 'test_token')
-      @dwolla_user  = double( :id => '12345',
-                              :name => 'Test Name',
-                              :latitude => '123',
-                              :longitude => '321',
-                              :city => 'Sample City',
-                              :state => 'TT',
-                              :type => 'Personal' )
+      @dwolla_user  = {       'Id' => '12345',
+                              'Name' => 'Test Name',
+                              'Latitude' => '123',
+                              'Longitude' => '321',
+                              'City' => 'Sample City',
+                              'State' => 'TT',
+                              'Type' => 'Personal' }
 
       subject.stub(:access_token) { @access_token }
-
-      ::Dwolla::User.should_receive(:me).with(@access_token.token).and_return(@dwolla_user)
     end
 
     context 'when successful' do
       before do
-        @dwolla_user.should_receive(:fetch).and_return(@dwolla_user)
+        ::Dwolla::Users.should_receive(:me).with(@access_token.token).and_return(@dwolla_user)
       end
 
       it 'sets the correct info based on user' do
-        subject.info.should == { 'name'      => 'Test Name',
-                                 'latitude'  => '123',
-                                 'longitude' => '321',
-                                 'city'      => 'Sample City',
-                                 'state'     => 'TT',
-                                 'type'      => 'Personal' }
+        # note that the keys are all lowercase 
+        # unlike the response that came back from Dwolla
+        expect(subject.info).to eq({ 'name'      => 'Test Name',
+                                     'latitude'  => '123',
+                                     'longitude' => '321',
+                                     'city'      => 'Sample City',
+                                     'state'     => 'TT',
+                                     'type'      => 'Personal' })
       end
 
       it 'sets the correct uid based on user' do
@@ -59,11 +59,11 @@ describe OmniAuth::Strategies::Dwolla do
       end
     end
 
-    context 'when a Dwolla::RequestException is raised' do
-      let(:request_exception) { ::Dwolla::RequestException.new('Dwolla Error Message') }
+    context 'when a Dwolla::AuthenticationError is raised' do
+      let(:auth_error) { ::Dwolla::AuthenticationError.new('Dwolla Error Message') }
 
       before do
-        @dwolla_user.should_receive(:fetch).and_raise(request_exception)
+        ::Dwolla::Users.should_receive(:me).with(@access_token.token).and_raise(auth_error)
       end
 
       it 're-raises the appropriate OAuth error' do
@@ -79,8 +79,8 @@ describe OmniAuth::Strategies::Dwolla do
           subject.uid
         rescue OmniAuth::Strategies::OAuth2::CallbackError => e
           exception = e
-          exception.error.should eq(request_exception)
-          exception.error_reason.should eq(request_exception.message)
+          exception.error.should eq(auth_error)
+          exception.error_reason.should eq(auth_error.message)
         end
 
         exception.should be

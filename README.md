@@ -58,3 +58,14 @@ credentials, passing the `CallbackError` through Rack's middleware chain.
 
 Note that the `Devise::OmniauthCallbacksController` provides a 
 good example of handling this scenario.
+
+## Maintainer's Note
+
+The [omniauth-dwolla gem](https://github.com/masukomi/omniauth-dwolla)
+is currently maintained by masukomi ([GitHub](https://github.com/masukomi/), [web](http://masukomi.org/)). PRs will be happily accepted but 
+the tests must still pass (and be updated if necessary). We're dealing 
+with money here folks. We can't be careless. 
+
+I'm [@masukomi on Twitter](https://twitter.com/masukomi) and that's the best 
+way to contact me if you have any questions or ideas about this gem. My GitHub
+notifications page is typically overflowing with stuff from work. ;)

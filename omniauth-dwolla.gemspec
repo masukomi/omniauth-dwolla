@@ -33,5 +33,6 @@ END
   s.add_development_dependency 'rspec', '~> 2.13.0'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'debugger'
+#  s.add_development_dependency 'debugger'
+  s.add_development_dependency 'coveralls'
 end

@@ -16,17 +16,17 @@ module OmniAuth
       # If anyone can figure a way to make it work
       # PLEASE issue a pull request. -masukomi
 
-      uid { user.id }
+      uid { user['Id'] }
 
       info do
         prune!({
-          'name'      => user.name,
-          'latitude'  => user.latitude,
-          'longitude' => user.longitude,
-          'city'      => user.city,
-          'state'     => user.state,
-          'type'      => user.type
-        })
+         'name'      => user['Name'],
+         'latitude'  => user['Latitude'],
+         'longitude' => user['Longitude'],
+         'city'      => user['City'],
+         'state'     => user['State'],
+         'type'      => user['Type']
+     })
       end
 
       def authorize_params
@@ -37,8 +37,8 @@ module OmniAuth
 
       private
         def user
-          @user ||= ::Dwolla::User.me(access_token.token).fetch
-        rescue ::Dwolla::RequestException => e
+          @user ||= ::Dwolla::Users.me(access_token.token)
+        rescue ::Dwolla::DwollaError => e
           raise CallbackError.new(e, e.message)
         end
 

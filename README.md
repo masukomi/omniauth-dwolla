@@ -1,5 +1,5 @@
 # OmniAuth Dwolla
-[![Gem Version](https://badge.fury.io/rb/omniauth-dwolla.svg)](http://badge.fury.io/rb/omniauth-dwolla) [![Build Status](https://travis-ci.org/masukomi/omniauth-dwolla.png?branch=master)](https://travis-ci.org/masukomi/omniauth-dwolla) [![Coverage Status](https://coveralls.io/repos/masukomi/omniauth-dwolla/badge.png)](https://coveralls.io/r/masukomi/omniauth-dwolla)
+[![Gem Version](https://badge.fury.io/rb/omniauth-dwolla.svg)](http://badge.fury.io/rb/omniauth-dwolla) [![Build Status](https://travis-ci.org/masukomi/omniauth-dwolla.png?branch=master)](https://travis-ci.org/masukomi/omniauth-dwolla) [![Coverage Status](https://coveralls.io/repos/masukomi/omniauth-dwolla/badge.png)](https://coveralls.io/r/masukomi/omniauth-dwolla) [![Code Climate](https://codeclimate.com/github/masukomi/omniauth-dwolla/badges/gpa.svg)](https://codeclimate.com/github/masukomi/omniauth-dwolla)
 
 
 Dwolla OAuth2 Strategy for OmniAuth 1.0.
